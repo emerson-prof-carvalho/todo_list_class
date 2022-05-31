@@ -9,4 +9,5 @@
     <string name="task_date">Limite</string>
     <string name="fab_description">Adiconar Tarefa</string>
     <string name="task_done">Tarefa concluída</string>
+    <string name="task_updated">Tarefa atualizada</string>
 </resources>

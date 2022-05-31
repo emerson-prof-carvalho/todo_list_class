@@ -1,6 +1,9 @@
 package br.edu.ifsuldeminas.mch.tarefas.domain;
 
-public class Task {
+import java.io.Serializable;
+
+public class Task implements Serializable {
+
     private Integer id;
     private String description;
     private boolean active;
@@ -29,5 +32,11 @@ public class Task {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    @Override
+    public String toString(){
+        return String.format("%s\n%s", description,
+                Boolean.toString(active));
     }
 }
