@@ -4,10 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -36,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         todoList = findViewById(R.id.todo_list);
-
+        registerForContextMenu(todoList);
         todoList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView,
@@ -68,5 +71,30 @@ public class MainActivity extends AppCompatActivity {
                 android.R.layout.simple_list_item_1, tasks);
 
         todoList.setAdapter(adapter);
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v,
+                                    ContextMenu.ContextMenuInfo menuInfo) {
+        MenuItem item = menu.add(R.string.delete_task);
+        item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                AdapterView.AdapterContextMenuInfo info =
+                        (AdapterView.AdapterContextMenuInfo) menuInfo;
+
+                Task taskSelected = (Task) todoList.getItemAtPosition(
+                        info.position);
+
+                TaskDAO taskDAO = new TaskDAO(getBaseContext());
+                taskDAO.delete(taskSelected);
+
+                Toast.makeText(getBaseContext(), R.string.task_done,
+                        Toast.LENGTH_SHORT).show();
+
+                updateTasks();
+                return true;
+            }
+        });
     }
 }
