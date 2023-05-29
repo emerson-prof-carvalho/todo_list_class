@@ -20,10 +20,5 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity
-            android:name=".FormActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
     </application>
 </manifest>
